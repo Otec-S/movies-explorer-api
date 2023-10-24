@@ -57,10 +57,10 @@ app.post(
       email: Joi.string().email().required(),
       password: Joi.string().required(),
       name: Joi.string().min(2).max(30),
-      about: Joi.string().min(2).max(30),
-      avatar: Joi.string().pattern(
-        /^((https?):\/\/(www.)?([A-Z0-9]-)*)([A-Z0-9]+)(\w\.)*/i
-      ),
+      // about: Joi.string().min(2).max(30),
+      // avatar: Joi.string().pattern(
+      //   /^((https?):\/\/(www.)?([A-Z0-9]-)*)([A-Z0-9]+)(\w\.)*/i
+      // ),
     }),
   }),
   createUser
@@ -72,11 +72,11 @@ app.use(auth);
 // применяем импортированный для юзеров route
 app.use(usersRouter);
 
-// применяем импортированный для карточек route
+// применяем импортированный для фильмов route
 app.use(moviesRouter);
 
 // обработка неправильного пути
-app.use("/*", wrongUrl);
+app.use("/*", wrongUrl); // !!!! ПЕРЕДЕЛАТЬ - тут будет перенаправление на отдельную страницу 404
 
 // подключаем логгер ошибок
 app.use(errorLogger);
