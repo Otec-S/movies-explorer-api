@@ -69,7 +69,7 @@ const createMovie = (req, res, next) => {
 
 // удаление карточки
 const deleteMovieById = (req, res, next) => {
-  Movie.findById(req.params.movieId)
+  Movie.findById(req.params._id)
     .orFail(new NotFound404Error("Фильм с указанным _id не найден."))
     .then((movie) => {
       if (movie.owner.equals(req.user._id)) {

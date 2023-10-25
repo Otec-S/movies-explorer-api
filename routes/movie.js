@@ -52,11 +52,11 @@ router.post(
 );
 
 router.delete(
-  "/movies/:movieId",
+  "/movies/:_id",
   celebrate({
     //   валидируем параметры
     params: Joi.object().keys({
-      movieId: Joi.string().hex().length(24),
+      _id: Joi.string().hex().length(24),
     }),
   }),
   deleteMovieById
