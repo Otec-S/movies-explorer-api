@@ -16,7 +16,9 @@ const wrongUrl = require("./middlewares/wrongUrl");
 
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
-const { PORT = 4000 } = process.env;
+const limiter = require("./middlewares/limiter");
+
+const { PORT, MONGO_URL } = process.env;
 
 const app = express();
 
@@ -24,13 +26,15 @@ app.use(helmet());
 
 app.use(cors());
 
+app.use(limiter);
+
 // научили express работать с json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // подключаемся к серверу mongo
 mongoose
-  .connect("mongodb://127.0.0.1:27017/bitfilmsdb", {
+  .connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
