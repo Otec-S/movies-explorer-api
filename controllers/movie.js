@@ -7,12 +7,6 @@ const NotFound404Error = require("../errors/not-found-404-error");
 // запрашиваем модель movie и присваеваем её константе Movie
 const Movie = require("../models/movie");
 
-/*
-getMovies,
-  createMovie,
-  deleteMovieById,
-*/
-
 // получаем перечень всех фильмов
 const getMovies = (req, res, next) => {
   Movie.find({})
@@ -67,7 +61,7 @@ const createMovie = (req, res, next) => {
     });
 };
 
-// удаление карточки
+// удаление фильма
 const deleteMovieById = (req, res, next) => {
   Movie.findById(req.params._id)
     .orFail(new NotFound404Error("Фильм с указанным _id не найден."))
@@ -91,46 +85,8 @@ const deleteMovieById = (req, res, next) => {
     });
 };
 
-// поставить лайк карточке
-// const likemovie = (req, res, next) => {
-//   movie.findByIdAndUpdate(
-//     req.params.movieId,
-//     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
-//     { new: true }
-//   )
-//     .orFail(new NotFound404Error("Карточка с указанным _id не найдена."))
-//     .then((movie) => res.status(200).send(movie))
-//     .catch((err) => {
-//       if (err instanceof mongoose.Error.CastError) {
-//         next(new BadRequest400Error("Передан невалидный _id карточки"));
-//         return;
-//       }
-//       next(err);
-//     });
-// };
-
-// убрать лайк с карточки
-// const dislikemovie = (req, res, next) => {
-//   movie.findByIdAndUpdate(
-//     req.params.movieId,
-//     { $pull: { likes: req.user._id } }, // убрать _id из массива
-//     { new: true }
-//   )
-//     .orFail(new NotFound404Error("Карточка с указанным _id не найдена."))
-//     .then((movie) => res.status(200).send(movie))
-//     .catch((err) => {
-//       if (err instanceof mongoose.Error.CastError) {
-//         next(new BadRequest400Error("Передан невалидный _id карточки"));
-//         return;
-//       }
-//       next(err);
-//     });
-// };
-
 module.exports = {
   getMovies,
   createMovie,
   deleteMovieById,
-  // likemovie,
-  // dislikemovie,
 };

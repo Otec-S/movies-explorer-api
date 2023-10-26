@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -68,10 +68,6 @@ app.post(
       email: Joi.string().email().required(),
       password: Joi.string().required(),
       name: Joi.string().min(2).max(30),
-      // about: Joi.string().min(2).max(30),
-      // avatar: Joi.string().pattern(
-      //   /^((https?):\/\/(www.)?([A-Z0-9]-)*)([A-Z0-9]+)(\w\.)*/i
-      // ),
     }),
   }),
   createUser

@@ -6,22 +6,7 @@ const {
   getMovies,
   createMovie,
   deleteMovieById,
-  // likeCard,
-  // dislikeCard,
 } = require("../controllers/movie");
-
-/*
-# возвращает все сохранённые текущим пользователем фильмы
-GET /movies
-
-# создаёт фильм с переданными в теле
-# country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
-POST /movies
-
-# удаляет сохранённый фильм по id
-DELETE /movies/_id
-
-*/
 
 router.get("/movies", getMovies);
 
@@ -61,27 +46,5 @@ router.delete(
   }),
   deleteMovieById
 );
-
-// router.put(
-//   "/cards/:cardId/likes",
-//   celebrate({
-//     //   валидируем параметры
-//     params: Joi.object().keys({
-//       cardId: Joi.string().hex().length(24),
-//     }),
-//   }),
-//   likeCard
-// );
-
-// router.delete(
-//   "/cards/:cardId/likes",
-//   celebrate({
-//     //   валидируем параметры
-//     params: Joi.object().keys({
-//       cardId: Joi.string().hex().length(24),
-//     }),
-//   }),
-//   dislikeCard
-// );
 
 module.exports = router;

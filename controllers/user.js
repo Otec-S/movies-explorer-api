@@ -14,28 +14,6 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 // запрашиваем модель user и присваеваем её константе User
 const User = require("../models/user");
 
-// получение всех пользователей
-// const getUsers = (req, res, next) => {
-//   User.find({})
-//     // вернём записанные в базу данные
-//     .then((users) => res.status(200).send(users))
-//     .catch(next);
-// };
-
-// нахождение пользователя по его Id
-// const findUserById = (req, res, next) => {
-//   User.findById(req.params.id)
-//     .orFail(new NotFound404Error("Пользователь с указанным _id не найден"))
-//     .then((user) => res.send(user))
-//     .catch((err) => {
-//       if (err instanceof mongoose.Error.CastError) {
-//         next(new BadRequest400Error("Невалидный _id пользователя"));
-//         return;
-//       }
-//       next(err);
-//     });
-// };
-
 // создаем нового пользователя
 const createUser = (req, res, next) => {
   const { name, email, password } = req.body;
@@ -144,8 +122,6 @@ const findCurrentUser = (req, res, next) => {
 };
 
 // обновляем профиль пользователя
-// ???? добавить обновление email?
-
 const updateUserProfile = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
@@ -174,41 +150,10 @@ const updateUserProfile = (req, res, next) => {
     });
 };
 
-// обновляем аватар пользователя
-// const updateUserAvatar = (req, res, next) => {
-//   User.findByIdAndUpdate(
-//     req.user._id,
-//     {
-//       avatar: req.body.avatar,
-//     },
-//     {
-//       new: true,
-//       runValidators: true,
-//     }
-//   )
-//     .orFail(new NotFound404Error("Пользователь с указанным _id не найден"))
-//     .then((user) => res.status(200).send(user))
-//     // данные не записались, вернём ошибку
-//     .catch((err) => {
-//       if (err instanceof mongoose.Error.ValidationError) {
-//         next(
-//           new BadRequest400Error(
-//             "Переданы некорректные данные при обновлении аватара"
-//           )
-//         );
-//         return;
-//       }
-//       next(err);
-//     });
-// };
-
 module.exports = {
-  // getUsers,
-  // findUserById,
   createUser,
   login,
   findCurrentUser,
   updateUserProfile,
   signOut,
-  // updateUserAvatar,
 };
