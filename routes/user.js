@@ -7,6 +7,7 @@ const {
   // findUserById,
   findCurrentUser,
   updateUserProfile,
+  signOut,
   // updateUserAvatar,
 } = require("../controllers/user");
 
@@ -23,6 +24,18 @@ router.patch(
     }),
   }),
   updateUserProfile
+);
+
+// разлогинивание
+router.post(
+  "/signout",
+  celebrate({
+    body: Joi.object().keys({
+      email: Joi.string().email().required(),
+      // password: Joi.string().required(),
+    }),
+  }),
+  signOut
 );
 
 // router.patch(

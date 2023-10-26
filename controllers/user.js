@@ -122,6 +122,18 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+// разлогинивание пользователя
+async function signOut(req, res, next) {
+  try {
+    return await res
+      .clearCookie("jwt")
+      .status(200)
+      .send({ message: "Cookie удалены" });
+  } catch (err) {
+    return next(err);
+  }
+}
+
 // поиск текущего пользователя
 // !!! проверь, чтобы возвращал только имя и емайл
 const findCurrentUser = (req, res, next) => {
@@ -197,5 +209,6 @@ module.exports = {
   login,
   findCurrentUser,
   updateUserProfile,
+  signOut,
   // updateUserAvatar,
 };
