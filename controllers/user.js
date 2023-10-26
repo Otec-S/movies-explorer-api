@@ -107,8 +107,15 @@ const login = (req, res, next) => {
                 expiresIn: "7d",
               }
             );
+            res
+              .cookie("jwt", token, {
+                maxAge: 3600000,
+                httpOnly: true,
+                sameSite: true,
+              })
+              .send(authUser.toJSON()); // отправляем не токен, а просто информацию о пользователе
             // вернём токен
-            res.send({ token });
+            // res.send({ token });
           })
       );
     })
@@ -133,7 +140,6 @@ const updateUserProfile = (req, res, next) => {
     {
       name: req.body.name,
       email: req.body.email,
-
     },
     {
       new: true,

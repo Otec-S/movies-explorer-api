@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
+const cookieParser = require('cookie-parser');
 
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -27,6 +28,8 @@ app.use(helmet());
 app.use(cors());
 
 app.use(limiter);
+
+app.use(cookieParser());
 
 // научили express работать с json
 app.use(express.json());
