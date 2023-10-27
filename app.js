@@ -10,8 +10,7 @@ const { errors, celebrate, Joi } = require("celebrate");
 const { createUser } = require("./controllers/user");
 const { login } = require("./controllers/user");
 const auth = require("./middlewares/auth");
-const usersRouter = require("./routes/user");
-const moviesRouter = require("./routes/movie");
+const routes = require("./routes/index");
 
 const wrongUrl = require("./middlewares/wrongUrl");
 
@@ -76,11 +75,8 @@ app.post(
 // модлвэр авторизации
 app.use(auth);
 
-// применяем импортированный для юзеров route
-app.use(usersRouter);
-
-// применяем импортированный для фильмов route
-app.use(moviesRouter);
+// применяем все роуты из index.js
+app.use(routes);
 
 // обработка неправильного пути
 app.use("/*", wrongUrl); // ?? ПЕРЕДЕЛАТЬ - тут будет перенаправление на отдельную страницу 404
