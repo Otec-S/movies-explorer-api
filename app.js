@@ -54,9 +54,8 @@ mongoose
 // подключаем логгер запросов
 app.use(requestLogger);
 
-// роуты, не требующие авторизации, например, регистрация и логин
+// роуты, не требующие авторизации
 app.post("/signin", signInValidation, login);
-
 app.post("/signup", signUpValidation, createUser);
 
 // модлвэр авторизации
@@ -66,7 +65,7 @@ app.use(auth);
 app.use(routes);
 
 // обработка неправильного пути
-app.use("/*", wrongUrl); // ?? ПЕРЕДЕЛАТЬ - тут будет перенаправление на отдельную страницу 404
+app.use("/*", wrongUrl); // ?? тут будет перенаправление на отдельную страницу 404
 
 // подключаем логгер ошибок
 app.use(errorLogger);

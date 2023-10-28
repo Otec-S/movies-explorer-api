@@ -6,8 +6,6 @@
 
 ## Ссылки на проект
 
-IP ______________________
+IP 84.201.179.159
 
-Frontend ____________________________
-
-Backend ________________
+Проект https://api.otec-s.movie-explorer.nomoredomainsrocks.ru
