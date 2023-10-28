@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 
 const cors = require("cors");
 const mongoose = require("mongoose");
-const { errors, celebrate, Joi } = require("celebrate");
+const { errors } = require("celebrate");
 
 const { createUser } = require("./controllers/user");
 const { login } = require("./controllers/user");
@@ -18,6 +18,11 @@ const centralErrorHandler = require("./middlewares/centralErrorHandler");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const limiter = require("./middlewares/limiter");
+
+const {
+  signInValidation,
+  signUpValidation,
+} = require("./middlewares/validations");
 
 const { PORT, MONGO_URL } = process.env;
 
@@ -50,28 +55,9 @@ mongoose
 app.use(requestLogger);
 
 // роуты, не требующие авторизации, например, регистрация и логин
-app.post(
-  "/signin",
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().email().required(),
-      password: Joi.string().required(),
-    }),
-  }),
-  login
-);
+app.post("/signin", signInValidation, login);
 
-app.post(
-  "/signup",
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().email().required(),
-      password: Joi.string().required(),
-      name: Joi.string().min(2).max(30),
-    }),
-  }),
-  createUser
-);
+app.post("/signup", signUpValidation, createUser);
 
 // модлвэр авторизации
 app.use(auth);

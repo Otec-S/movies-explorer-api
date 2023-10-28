@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { celebrate, Joi } = require("celebrate");
+const { userValidation } = require("../middlewares/validations");
 
 const {
   findCurrentUser,
@@ -10,16 +10,7 @@ const {
 
 router.get("/users/me", findCurrentUser);
 
-router.patch(
-  "/users/me",
-  celebrate({
-    body: Joi.object().keys({
-      name: Joi.string().min(2).max(30).required(),
-      email: Joi.string().email().required(),
-    }),
-  }),
-  updateUserProfile
-);
+router.patch("/users/me", userValidation, updateUserProfile);
 
 // разлогинивание
 router.post("/signout", signOut);
