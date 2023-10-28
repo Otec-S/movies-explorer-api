@@ -13,6 +13,7 @@ const auth = require("./middlewares/auth");
 const routes = require("./routes/index");
 
 const wrongUrl = require("./middlewares/wrongUrl");
+const centralErrorHandler = require("./middlewares/centralErrorHandler");
 
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
@@ -88,15 +89,7 @@ app.use(errorLogger);
 app.use(errors());
 
 // здесь обрабатываем все ошибки
-app.use((err, req, res, next) => {
-  // если у ошибки нет статуса, выставляем 500
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    // проверяем статус и выставляем сообщение в зависимости от него
-    message: statusCode === 500 ? "На сервере произошла ошибка" : message,
-  });
-  next();
-});
+app.use(centralErrorHandler);
 
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт слушает приложение
