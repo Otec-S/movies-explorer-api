@@ -7,11 +7,22 @@ const NotFound404Error = require("../errors/not-found-404-error");
 // запрашиваем модель movie и присваеваем её константе Movie
 const Movie = require("../models/movie");
 
-// получаем перечень всех фильмов
+/*
+// получаем перечень всех карточек
+const getCards = (req, res, next) => {
+  Card.find({})
+    // вернём все карточки
+    .then((cards) => res.status(200).send(cards))
+    .catch(next);
+};
+*/
+
+// получаем перечень всех фильмов этого пользователя
 const getMovies = (req, res, next) => {
-  Movie.find({})
-    // вернём все фильмы, сохраненные пользователем
-    .then((movies) => res.status(200).send(movies))
+  Movie.find({ owner: req.user._id })
+    .then((movies) => {
+      res.status(200).send(movies);
+    })
     .catch(next);
 };
 
@@ -30,7 +41,7 @@ const createMovie = (req, res, next) => {
     nameRU,
     nameEN,
   } = req.body;
-  const owner = req.user._id; // ??? тут так?
+  const owner = req.user._id; // в owner только id пользователя
   Movie.create({
     country,
     director,
