@@ -24,7 +24,7 @@ const {
   signUpValidation,
 } = require("./middlewares/validations");
 
-const { PORT, MONGO_URL } = process.env;
+const { NODE_ENV, MONGO_URL, PORT = 4000 } = process.env;
 
 const app = express();
 
@@ -42,10 +42,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // подключаемся к серверу mongo
 mongoose
-  .connect(MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    NODE_ENV === "production"
+      ? MONGO_URL
+      : "mongodb://127.0.0.1:27017/bitfilmsdb",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("База данных подключена");
   })
