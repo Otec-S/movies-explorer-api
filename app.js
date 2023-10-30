@@ -24,7 +24,9 @@ const {
   signUpValidation,
 } = require("./middlewares/validations");
 
-const { NODE_ENV, MONGO_URL, PORT = 4000 } = process.env;
+const { NODE_ENV, MONGO_PROD, PORT = 4000 } = process.env;
+
+const MONGO_DEV = require("./config");
 
 const app = express();
 
@@ -44,8 +46,8 @@ app.use(express.urlencoded({ extended: true }));
 mongoose
   .connect(
     NODE_ENV === "production"
-      ? MONGO_URL
-      : "mongodb://127.0.0.1:27017/bitfilmsdb",
+      ? MONGO_PROD
+      : MONGO_DEV,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
