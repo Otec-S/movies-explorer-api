@@ -92,8 +92,6 @@ const login = (req, res, next) => {
                 sameSite: true,
               })
               .send(authUser.toJSON()); // отправляем не токен, а просто информацию о пользователе
-            // вернём токен
-            // res.send({ token });
           })
       );
     })
