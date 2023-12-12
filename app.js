@@ -32,7 +32,11 @@ const app = express();
 
 app.use(helmet());
 
-app.use(cors());
+// тут поменял, так как у меня куки
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 
 app.use(limiter);
 

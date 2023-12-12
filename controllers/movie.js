@@ -26,7 +26,7 @@ const getMovies = (req, res, next) => {
     .catch(next);
 };
 
-// создание новой карточки
+// создание/добавление новой карточки
 const createMovie = (req, res, next) => {
   const {
     country,
