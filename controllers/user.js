@@ -88,7 +88,7 @@ const login = (req, res, next) => {
             res
               .cookie("jwt", token, {
                 maxAge: 3600000,
-                httpOnly: true,
+                // httpOnly: true,
                 sameSite: true,
               })
               .send(authUser.toJSON()); // отправляем не токен, а просто информацию о пользователе
