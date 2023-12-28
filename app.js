@@ -34,7 +34,7 @@ app.use(helmet());
 
 // тут поменял, так как у меня куки
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://otec-s.movie-explorer.nomoredomainsrocks.ru',
   credentials: true,
 }));
 
