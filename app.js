@@ -12,7 +12,7 @@ const { login } = require("./controllers/user");
 const auth = require("./middlewares/auth");
 const routes = require("./routes/index");
 
-const wrongUrl = require("./middlewares/wrongUrl");
+// const wrongUrl = require("./middlewares/wrongUrl");
 const centralErrorHandler = require("./middlewares/centralErrorHandler");
 
 const { requestLogger, errorLogger } = require("./middlewares/logger");
@@ -34,7 +34,7 @@ app.use(helmet());
 
 // тут поменял, так как у меня куки
 app.use(cors({
-  origin: 'http://otec-s.movie-explorer.nomoredomainsmonster.ru',
+  origin: 'https://otec-s.movie-explorer.nomoredomainsmonster.ru',
   credentials: true,
 }));
 
