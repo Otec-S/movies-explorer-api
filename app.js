@@ -30,14 +30,31 @@ const MONGO_DEV = require("./config");
 
 const app = express();
 
+// cors от Сергея
+const options = {
+  origin: [
+    'http://localhost:3000',
+    'https://otec-s.movie-explorer.nomoredomainsmonster.ru',
+    'https://YOUR.github.io',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(options)); // ПЕРВЫМ!
+
+
 app.use(helmet());
 
 // тут поменял, так как у меня куки
-app.use(cors({
-  origin: 'https://otec-s.movie-explorer.nomoredomainsmonster.ru',
-  // origin: 'http://localhost:3000',
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: 'https://otec-s.movie-explorer.nomoredomainsmonster.ru',
+//   // origin: 'http://localhost:3000',
+//   credentials: true,
+// }));
 
 // app.use(cors());
 
