@@ -12,7 +12,6 @@ const { login } = require("./controllers/user");
 const auth = require("./middlewares/auth");
 const routes = require("./routes/index");
 
-// const wrongUrl = require("./middlewares/wrongUrl");
 const centralErrorHandler = require("./middlewares/centralErrorHandler");
 
 const { requestLogger, errorLogger } = require("./middlewares/logger");
@@ -33,30 +32,18 @@ const app = express();
 // cors от Сергея
 const options = {
   origin: [
-    'http://localhost:3000',
-    'https://otec-s.movie-explorer.nomoredomainsmonster.ru',
-    'https://YOUR.github.io',
+    "http://localhost:3000",
+    "https://otec-s.movie-explorer.nomoredomainsmonster.ru",
   ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   preflightContinue: false,
   optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  allowedHeaders: ["Content-Type", "origin", "Authorization"],
   credentials: true,
 };
-
-app.use(cors(options)); // ПЕРВЫМ!
-
+app.use(cors(options));
 
 app.use(helmet());
-
-// тут поменял, так как у меня куки
-// app.use(cors({
-//   origin: 'https://otec-s.movie-explorer.nomoredomainsmonster.ru',
-//   // origin: 'http://localhost:3000',
-//   credentials: true,
-// }));
-
-// app.use(cors());
 
 app.use(limiter);
 
@@ -68,15 +55,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // подключаемся к серверу mongo
 mongoose
-  .connect(
-    NODE_ENV === "production"
-      ? MONGO_PROD
-      : MONGO_DEV,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(NODE_ENV === "production" ? MONGO_PROD : MONGO_DEV, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("База данных подключена");
   })
@@ -95,9 +77,6 @@ app.use(auth);
 // применяем все роуты из index.js
 app.use(routes);
 
-// обработка неправильного пути
-// app.use("/*", wrongUrl); // ?? тут будет перенаправление на отдельную страницу 404
-
 // подключаем логгер ошибок
 app.use(errorLogger);
 
@@ -107,12 +86,7 @@ app.use(errors());
 // здесь обрабатываем все ошибки
 app.use(centralErrorHandler);
 
-
-// вернул все как было до деплоя
-
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт слушает приложение
   console.log(`Приложение слушает порт ${PORT}`);
 });
-
-
